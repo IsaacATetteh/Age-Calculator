@@ -113,6 +113,11 @@ export default function Home() {
               id="dayInput"
               placeholder="DD"
             />
+            {dayError && (
+              <p style={{ fontSize: "10px", color: "#FF0000" }}>
+                Must be a valid day.
+              </p>
+            )}
           </div>
           <div>
             <label className="block" htmlFor="monthInput">
@@ -132,6 +137,11 @@ export default function Home() {
               id="monthInput"
               placeholder="MM"
             />
+            {monthError && (
+              <p style={{ fontSize: "10px", color: "#FF0000" }}>
+                Must be a valid month.
+              </p>
+            )}
           </div>
           <div>
             <label className="block" htmlFor="yearInput">
@@ -151,6 +161,11 @@ export default function Home() {
               id="yearInput"
               placeholder="YYYY"
             />
+            {yearError && (
+              <p style={{ fontSize: "10px", color: "#FF0000" }}>
+                Must be a valid year.
+              </p>
+            )}
           </div>
         </div>
         <div className="border-grey border-b-2 w-[77%] ml-[50px]"></div>
