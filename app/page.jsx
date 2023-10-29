@@ -3,9 +3,9 @@ import Image from "next/image";
 import { useState } from "react";
 
 export default function Home() {
-  const [day, setDay] = useState(null);
-  const [month, setMonth] = useState(null);
-  const [age, setAge] = useState(null);
+  const [day, setDay] = useState("--");
+  const [month, setMonth] = useState("--");
+  const [age, setAge] = useState("--");
 
   function calculateAge() {
     // get the days from the inputs
@@ -49,9 +49,10 @@ export default function Home() {
               <p className="tracking-widest text-xs text-gray-500 pb-1">DAY</p>
             </label>
             <input
-              className="textarea1 w-full h-12 text-lg font-bold border-grey border-2 resize-none rounded-lg pt-[6.5px] pl-[10px]"
+              className="textarea1 w-full h-12 text-2xl font-bold border-grey border-2 resize-none rounded-lg pt-[6.5px] pl-[10px]"
               type="number"
               id="dayInput"
+              placeholder="DD"
             />
           </div>
           <div>
@@ -61,9 +62,10 @@ export default function Home() {
               </p>
             </label>
             <input
-              className="textarea1 w-full h-12 text-lg font-bold border-grey border-2 resize-none rounded-lg pt-[6.5px] pl-[10px]"
+              className="textarea1 w-full h-12 text-2xl font-bold border-grey border-2 resize-none rounded-lg pt-[6.5px] pl-[10px]"
               type="number"
               id="monthInput"
+              placeholder="MM"
             />
           </div>
           <div>
@@ -71,9 +73,10 @@ export default function Home() {
               <p className="tracking-widest text-xs text-gray-500 pb-1">YEAR</p>
             </label>
             <input
-              className="textarea1 w-full h-12 text-lg font-bold border-grey border-2 resize-none rounded-lg pt-[6.5px] pl-[10px]"
-              type="number"
+              className="textarea1 w-full h-12 text-2xl font-bold border-grey border-2 resize-none rounded-lg pt-[6.5px] pl-[10px]"
+              type=""
               id="yearInput"
+              placeholder="YYYY"
             />
           </div>
         </div>
