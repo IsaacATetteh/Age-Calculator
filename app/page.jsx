@@ -12,7 +12,6 @@ export default function Home() {
   const [dayError, dError] = useState(false);
 
   function calculateAge() {
-    // get the days from the inputs
     const inputDay = parseInt(document.getElementById("dayInput").value, 10);
     const inputMonth = parseInt(
       document.getElementById("monthInput").value,
@@ -20,35 +19,35 @@ export default function Home() {
     );
     const inputYear = parseInt(document.getElementById("yearInput").value, 10);
 
-    // fetch the current days and calculate the difference
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth() + 1;
     const currentDay = currentDate.getDate();
 
-    const isValidMonth = validMonth(inputMonth);
-    const isValidYear = validYear(inputYear);
-    const isValidDay = validDay(inputDay);
+    const isValidMonth = validMonth(
+      inputMonth,
+      inputYear,
+      currentYear,
+      currentMonth
+    );
+    const isValidYear = validYear(inputYear, currentYear);
+    const isValidDay = validDay(
+      inputDay,
+      inputMonth,
+      currentDay,
+      currentMonth,
+      currentYear,
+      inputYear
+    );
 
-    if (!isValidMonth) {
-      mError(true); // set error state to true
-    } else {
-      mError(false);
-    }
-
-    if (!isValidYear) {
-      yError(true);
-    } else {
-      yError(false);
-    }
-
-    if (!isValidDay) {
-      dError(true);
-    } else {
-      dError(false);
-    }
+    mError(!isValidMonth);
+    yError(!isValidYear);
+    dError(!isValidDay);
 
     if (!isValidMonth || !isValidYear || !isValidDay) {
+      setAge("--");
+      setMonth("--");
+      setDay("--");
       return;
     }
 
@@ -65,29 +64,37 @@ export default function Home() {
       day = new Date(currentYear, currentMonth - 1, 0).getDate() + day;
     }
 
-    setAge(age);
-    setMonth(month);
-    setDay(day);
+    if (age < 0 || month < 0 || day < 0) {
+      setAge("--");
+      setMonth("--");
+      setDay("--");
+    } else {
+      setAge(age);
+      setMonth(month);
+      setDay(day);
+    }
   }
 
-  function validDay(day) {
-    const inputMonth = parseInt(
-      document.getElementById("monthInput").value,
-      10
-    );
-
+  function validDay(
+    day,
+    month,
+    currentDay,
+    currentMonth,
+    currentYear,
+    inputYear
+  ) {
     const months = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    //alert(currentMonth);
-    return !isNaN(day) && day >= 1 && day <= months[inputMonth - 1];
+    if (currentYear === inputYear && currentMonth === month && currentDay < day)
+      return false;
+    return !isNaN(day) && day >= 1 && day <= months[month - 1];
   }
 
-  function validMonth(month) {
+  function validMonth(month, inputYear, currentYear, currentMonth) {
+    if (currentYear === inputYear && currentMonth < month) return false;
     return !isNaN(month) && month <= 12 && month >= 1;
   }
 
-  function validYear(year) {
-    const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
+  function validYear(year, currentYear) {
     return !isNaN(year) && year <= currentYear && year >= 1900;
   }
 
